@@ -1,0 +1,55 @@
+﻿<script>function gridBox_valueChanged(args, setValueMethod) {
+        var $dataGrid = $("#dDBoxDataGrid");
+
+        if ($dataGrid.length) {
+            var dataGrid = $dataGrid.dxDataGrid("instance");
+            dataGrid.selectRows(args.value, false);
+        }
+        setValueMethod(args.value);
+    }
+    function onSelectionChanged(e, dropDownBoxInstance) {
+        var keys = e.selectedRowKeys;
+        dropDownBoxInstance.option("value", keys);
+    }
+    function onCloseBtnClick(args, dropDownBoxInstance) {
+        dropDownBoxInstance.close();
+    }</script>
+
+@(Html.DevExtreme().DropDownBox()
+            .Width("100%")
+                    .Value(new JS("data.StateID"))
+                    .ValueExpr("ID")
+                    .DisplayExpr("Name")
+                    .DataSource(d => d.WebApi().Controller("Data").LoadAction("GetStates").Key("ID"))
+                    .Placeholder("Select a value...")
+                    .ShowClearButton(true)
+                    .OnValueChanged(@"function(args) { gridBox_valueChanged(args, setValue); }")
+                    .DropDownOptions(op =>
+                    {
+                        op.Width(500);
+                        op.MinHeight(300);
+                    })
+                    .ContentTemplate(@<text>
+                        @(Html.DevExtreme().DataGrid()
+                                .ID("dDBoxDataGrid")
+                                .Selection(selection => selection.Mode(SelectionMode.Multiple))
+                                .SearchPanel(s => s.Visible(true))
+                                .Height("90%")
+                                .ShowBorders(true)
+                                .ShowRowLines(true)
+                                .Scrolling(s => s.Mode(GridScrollingMode.Virtual))
+                                .DataSource(d => d.WebApi().Controller("Data").LoadAction("GetStates").Key("ID"))
+                                .Columns(columns =>
+                                {
+                                            columns.Add().DataField("ID");
+                                            columns.Add().DataField("Name");
+                                        })
+                               .SelectedRowKeys(new JS("component.option('value')"))
+                               .OnSelectionChanged(@"function(args) { onSelectionChanged(args, component); }")
+                        )
+                        @(Html.DevExtreme().Button()
+                                 .ElementAttr(new { style = "margin-top:10px;float:right" })
+                                 .Text("Close")
+                                 .OnClick(@"function(args) { onCloseBtnClick(args, component); }"))
+                    </text>)
+)

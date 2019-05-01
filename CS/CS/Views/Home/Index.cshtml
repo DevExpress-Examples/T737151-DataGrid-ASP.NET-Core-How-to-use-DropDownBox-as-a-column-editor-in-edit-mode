@@ -1,0 +1,62 @@
+<h2>DataGrid with DropDownBox</h2>
+
+<script>
+    function customizeDisplayText(cell, info) {
+        var rowData = info.row.data;
+        if (!rowData)
+            return;
+        var texts = [];
+        if (rowData.StateID && rowData.StateID.length) {
+            for (var i = 0; i < rowData.StateID.length; i++) {
+                var value = rowData.StateID[i];
+                var displayText = info.column.lookup.calculateCellValue(value);
+                if (displayText)
+                    texts.push(displayText);
+            }
+        }
+        cell.append(texts.toString());
+    };
+</script>
+
+@(Html.DevExtreme().DataGrid()
+                .ID("gridContainer")
+                .DataSource(d => d.WebApi().Controller("Data").LoadAction("Get").Key("ID"))
+                .Editing(editing =>
+                {
+                    editing.Mode(GridEditMode.Form);
+                    editing.AllowUpdating(true);
+                    editing.AllowAdding(true);
+                    editing.AllowDeleting(true);
+                })
+                .Columns(columns =>
+                {
+                    columns.Add()
+            .DataField("Prefix")
+            .Caption("Title")
+            .Width(55);
+                    columns.Add()
+            .DataField("FirstName");
+                    columns.Add()
+            .DataField("LastName");
+                    columns.Add()
+            .DataField("Position")
+            .Width(170);
+                    columns.Add()
+            .DataField("StateID")
+            .Caption("State")
+            .AllowFiltering(false)
+               .CellTemplate(new JS("customizeDisplayText"))
+                .Lookup(lookup => lookup
+                    .DataSource(d => d.WebApi().Controller("Data").LoadAction("GetStates").Key("ID")).DataSourceOptions(op => op.PageSize(10).Paginate(true))
+
+                    .DisplayExpr("Name")
+                    .ValueExpr("ID")
+                ).EditCellTemplate(@<text>
+                    @Html.Partial("DxDropDownBox")
+                </text>);
+                                columns.Add()
+                        .DataField("BirthDate")
+                        .DataType(GridColumnDataType.Date);
+                            })
+           
+)
