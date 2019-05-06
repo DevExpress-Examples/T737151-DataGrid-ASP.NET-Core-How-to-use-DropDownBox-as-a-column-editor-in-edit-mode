@@ -34,7 +34,6 @@ namespace CS.Models {
                 return _memoryCache.Get<ICollection<Employee>>(key);
             }
         }
-
         public void SaveChanges()
         {
             foreach (var employee in Employees.Where(a => a.ID == 0))
