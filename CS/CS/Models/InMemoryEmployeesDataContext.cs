@@ -7,13 +7,8 @@ using System.Linq;
 namespace CS.Models {
     public class InMemoryEmployeesDataContext
     {
-        //const string SessionKey = "3fd387f5-610a-4060-9204-619ef6e6f3ef";
         IHttpContextAccessor _contextAccessor;
         IMemoryCache _memoryCache;
-
-        //NorthwindContext _nwind;
-        //IHttpContextAccessor _contextAccessor;
-        //IMemoryCache _memoryCache;
 
         public InMemoryEmployeesDataContext(IHttpContextAccessor contextAccessor, IMemoryCache memoryCache)
         {
@@ -23,15 +18,6 @@ namespace CS.Models {
 
         public ICollection<Employee> Employees
         {
-            //get
-            //{
-            //    var session = _contextAccessor.HttpContext.Session;
-            //    if (session.SessionKey == null)
-            //        session[SessionKey] = SampleData.DataGridEmployees;
-
-            //    return (ICollection<Employee>)session[SessionKey];
-            //}
-
             get {
                 var session = _contextAccessor.HttpContext.Session;
                 var key = session.Id + "_Employees";
