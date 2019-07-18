@@ -1,4 +1,5 @@
-﻿<script>function gridBox_valueChanged(args, setValueMethod) {
+﻿<script>
+    function gridBox_valueChanged(args, setValueMethod) {
         var $dataGrid = $("#dDBoxDataGrid");
 
         if ($dataGrid.length) {
@@ -13,7 +14,8 @@
     }
     function onCloseBtnClick(args, dropDownBoxInstance) {
         dropDownBoxInstance.close();
-    }</script>
+    }
+</script>
 
 @(Html.DevExtreme().DropDownBox()
             .Width("100%")
@@ -27,14 +29,15 @@
                     .DropDownOptions(op =>
                     {
                         op.Width(500);
-                        op.MinHeight(300);
+                        op.Height(370);
+                        op.MinHeight(370);
                     })
                     .ContentTemplate(@<text>
                         @(Html.DevExtreme().DataGrid()
                                 .ID("dDBoxDataGrid")
                                 .Selection(selection => selection.Mode(SelectionMode.Multiple))
                                 .SearchPanel(s => s.Visible(true))
-                                .Height("90%")
+                                .Height(280)
                                 .ShowBorders(true)
                                 .ShowRowLines(true)
                                 .Scrolling(s => s.Mode(GridScrollingMode.Virtual))

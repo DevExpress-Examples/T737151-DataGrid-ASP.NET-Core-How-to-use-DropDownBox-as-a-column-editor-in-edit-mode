@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
 namespace CS.Models {
-    public partial class SampleData { 
-    public static List<State> States = new List<State> {
+    public partial class SampleData {
+        public static List<State> States = new List<State> {
             new State {
                 ID = 1,
                 Name = "Alabama"

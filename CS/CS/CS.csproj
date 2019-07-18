@@ -11,5 +11,5 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties DismissedDevExtremeVersion="19.1.2-beta" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties DismissedDevExtremeVersion="" /></VisualStudio></ProjectExtensions>
 </Project>

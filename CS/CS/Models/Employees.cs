@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 
 namespace CS.Models {
-    public partial class SampleData
-    {
-        public static List<Employee> DataGridEmployees
-        {
-            get
-            {
+    public partial class SampleData {
+        public static List<Employee> DataGridEmployees {
+            get {
                 return new List<Employee> {
                     new Employee {
                         ID = 1,
